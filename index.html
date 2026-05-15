@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandeep Chinnam — Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a09;
+  --surface:#111110;
+  --ink:#f0ede6;
+  --muted:#6b6a65;
+  --amber:#f5a623;
+  --amber-dim:#7a5010;
+  --line:rgba(240,237,230,0.08);
+  --display:'Bebas Neue',sans-serif;
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);overflow-x:hidden;cursor:none}
+
+/* CURSOR — spring-style via JS */
+#cur{position:fixed;width:8px;height:8px;background:var(--amber);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+#cur-ring{position:fixed;width:34px;height:34px;border:1px solid var(--amber);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.3;transition:width .2s,height .2s}
+body:has(a:hover) #cur{width:12px;height:12px;background:var(--ink)}
+body:has(a:hover) #cur-ring{width:52px;height:52px;opacity:.15}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 3rem;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);background:rgba(10,10,9,.7)}
+.nav-logo{font-family:var(--display);font-size:1.4rem;letter-spacing:.05em;color:var(--amber);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;background:var(--bg)}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-glow{position:absolute;top:20%;right:10%;width:500px;height:500px;background:radial-gradient(circle,rgba(245,166,35,.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:fadeUp .8s .2s ease forwards}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--amber-dim)}
+.hero h1{font-family:var(--display);font-size:clamp(5rem,16vw,15rem);line-height:.88;letter-spacing:.01em;opacity:0;animation:fadeUp .9s .35s ease forwards}
+.hero h1 .amber{color:var(--amber)}
+.hero-sub{margin-top:2.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;opacity:0;animation:fadeUp .8s .55s ease forwards}
+.hero-desc{max-width:360px;font-size:.85rem;line-height:1.8;color:var(--muted)}
+.hero-desc strong{color:var(--ink);font-weight:400}
+.hero-actions{display:flex;gap:1rem;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:.85rem 1.8rem;transition:all .3s;white-space:nowrap}
+.btn:hover{border-color:var(--amber);color:var(--amber)}
+.btn-fill{background:var(--amber);color:var(--bg);border-color:var(--amber)}
+.btn-fill:hover{background:transparent;color:var(--amber)}
+.scroll-hint{position:absolute;right:3rem;bottom:4rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;display:flex;align-items:center;gap:.75rem;opacity:0;animation:fadeUp .8s .9s ease forwards}
+.scroll-hint::before{content:'';width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--muted))}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;padding:1.1rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 22s linear infinite}
+.marquee-item{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:2.5rem}
+.marquee-item .dot{width:4px;height:4px;background:var(--amber);border-radius:50%;flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION SHARED */
+section{padding:9rem 3rem;border-top:1px solid var(--line)}
+.section-label{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:1rem;margin-bottom:5rem}
+.section-label::before{content:'';width:28px;height:1px;background:var(--amber-dim)}
+.section-label .num{color:var(--amber)}
+
+/* PARALLAX GALLERY — skiper30 style */
+#parallax{padding:0;overflow:hidden;height:160vh;background:var(--surface);border-top:1px solid var(--line)}
+.parallax-inner{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;gap:1.5vw;padding:1.5vw}
+.par-col{display:flex;flex-direction:column;gap:1.5vw;width:25%;will-change:transform}
+.par-col:nth-child(1){transform:translateY(-15%);animation:none}
+.par-col:nth-child(2){transform:translateY(-45%)}
+.par-col:nth-child(3){transform:translateY(-10%)}
+.par-col:nth-child(4){transform:translateY(-35%)}
+.par-card{flex-shrink:0;background:var(--bg);border:1px solid var(--line);padding:2.5rem 2rem;position:relative;overflow:hidden;min-height:280px;display:flex;flex-direction:column;justify-content:space-between}
+.par-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.par-card:hover::before{transform:scaleX(1)}
+.par-card-label{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem}
+.par-card-title{font-family:var(--display);font-size:1.8rem;letter-spacing:.02em;line-height:1;color:var(--ink);margin-bottom:.8rem}
+.par-card-desc{font-size:.75rem;line-height:1.7;color:var(--muted)}
+.par-card-tech{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:1.5rem}
+.par-card-tech span{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);padding:.25rem .6rem;color:var(--muted)}
+.par-card-link{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-decoration:none;margin-top:1rem;display:inline-flex;align-items:center;gap:.4rem}
+
+/* SKILLS */
+#skills{background:var(--bg)}
+.skills-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:8rem;align-items:start}
+.about-text h2{font-family:var(--display);font-size:clamp(3.5rem,7vw,6.5rem);line-height:.9;letter-spacing:.02em;margin-bottom:2rem}
+.about-text h2 em{font-family:var(--serif);font-style:italic;color:var(--amber);font-size:.75em}
+.about-text p{font-size:.82rem;line-height:1.9;color:var(--muted);margin-bottom:1rem}
+.about-text p strong{color:var(--ink);font-weight:400}
+.skill-block{margin-bottom:2.5rem}
+.skill-block h4{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--line)}
+.skill-row{display:flex;align-items:center;gap:1rem;margin-bottom:.8rem}
+.skill-name{font-size:.72rem;color:var(--ink);width:120px;flex-shrink:0}
+.skill-track{flex:1;height:1px;background:var(--line);position:relative}
+.skill-fill{height:1px;background:var(--amber);transform-origin:left;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.skill-fill.animate{transform:scaleX(1)}
+.skill-pct{font-size:.62rem;color:var(--muted);width:28px;text-align:right}
+.chip-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.chip{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);padding:.35rem .9rem;color:var(--muted);transition:border-color .2s,color .2s}
+.chip:hover{border-color:var(--amber);color:var(--amber)}
+
+/* EXPERIENCE */
+#experience{background:var(--surface)}
+.exp-row{display:grid;grid-template-columns:200px 1fr;gap:4rem;padding:3rem 0;border-bottom:1px solid var(--line)}
+.exp-row:first-of-type{border-top:1px solid var(--line)}
+.exp-meta{padding-top:.25rem}
+.exp-date{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem}
+.exp-company{font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;color:var(--ink)}
+.exp-role{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.exp-content h3{font-family:var(--serif);font-size:1.5rem;font-weight:400;margin-bottom:1.5rem;color:var(--ink)}
+.exp-bullets{list-style:none;display:grid;gap:.9rem}
+.exp-bullets li{font-size:.8rem;line-height:1.8;color:var(--muted);padding-left:1.2rem;position:relative}
+.exp-bullets li::before{content:'›';position:absolute;left:0;color:var(--amber)}
+
+/* PUBLICATIONS */
+#publications{background:var(--bg)}
+.pub-item{display:grid;grid-template-columns:90px 1fr auto;gap:3rem;align-items:start;padding:2.5rem 0;border-bottom:1px solid var(--line)}
+.pub-item:first-of-type{border-top:1px solid var(--line)}
+.pub-year{font-family:var(--display);font-size:2.5rem;color:var(--amber-dim);letter-spacing:.04em}
+.pub-title{font-family:var(--serif);font-size:1.15rem;font-weight:400;margin-bottom:.6rem;color:var(--ink)}
+.pub-desc{font-size:.76rem;line-height:1.7;color:var(--muted);max-width:520px}
+.pub-link{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-decoration:none;white-space:nowrap;transition:opacity .2s}
+.pub-link:hover{opacity:.6}
+
+/* CERTIFICATIONS */
+#certifications{background:var(--surface)}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.cert-card{background:var(--surface);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s}
+.cert-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--amber);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.cert-card:hover{background:var(--bg)}
+.cert-card:hover::after{transform:scaleX(1)}
+.cert-icon{font-size:1.5rem;margin-bottom:1.2rem;display:block}
+.cert-issuer{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.cert-title{font-family:var(--serif);font-size:1rem;font-weight:400;line-height:1.4;color:var(--ink);margin-bottom:1.2rem}
+.cert-link{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);text-decoration:none;transition:opacity .2s}
+.cert-link:hover{opacity:.6}
+
+/* CONTACT */
+#contact{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;background:var(--bg)}
+.contact-left{padding:8rem 3rem;border-right:1px solid var(--line)}
+.contact-left h2{font-family:var(--display);font-size:clamp(4rem,9vw,8rem);line-height:.88;letter-spacing:.02em;margin-top:2rem}
+.contact-left h2 em{font-family:var(--serif);font-style:italic;color:var(--amber)}
+.contact-right{padding:8rem 3rem;display:flex;flex-direction:column;justify-content:space-between}
+.contact-link-row{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);transition:color .2s}
+.contact-link-row:first-of-type{border-top:1px solid var(--line)}
+.contact-link-row:hover{color:var(--amber)}
+.cl-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.cl-value{font-size:.82rem}
+.cl-arrow{font-size:1.2rem;color:var(--amber);opacity:.5;transition:opacity .2s,transform .2s}
+.contact-link-row:hover .cl-arrow{opacity:1;transform:translate(3px,-3px)}
+.contact-avail{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.75rem;margin-top:3rem}
+.contact-avail::before{content:'';width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* FOOTER */
+footer{padding:2rem 3rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
+.footer-logo{font-family:var(--display);font-size:1.2rem;color:var(--amber)}
+footer p{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.12s}
+.reveal-delay-2{transition-delay:.24s}
+.reveal-delay-3{transition-delay:.36s}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem}
+  .nav-links{display:none}
+  .hero{padding:0 1.5rem 4rem}
+  section{padding:6rem 1.5rem}
+  .skills-layout{grid-template-columns:1fr;gap:4rem}
+  .parallax-inner{gap:2vw;padding:2vw}
+  .par-col:nth-child(3),.par-col:nth-child(4){display:none}
+  .par-col{width:50%}
+  .exp-row{grid-template-columns:1fr;gap:1.5rem}
+  .pub-item{grid-template-columns:60px 1fr;gap:1.5rem}
+  .pub-link{display:none}
+  .certs-grid{grid-template-columns:1fr}
+  #contact{grid-template-columns:1fr;border-top:1px solid var(--line)}
+  .contact-left{padding:5rem 1.5rem;border-right:none;border-bottom:1px solid var(--line)}
+  .contact-right{padding:4rem 1.5rem}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="#" class="nav-logo">SC</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#skills">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="border-top:none;padding-top:0">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">
+    <span>Backend Engineer &amp; Cloud Specialist</span>
+  </div>
+  <h1>
+    SANDEEP<br>
+    <span class="amber">CHINNAM</span>
+  </h1>
+  <div class="hero-sub">
+    <p class="hero-desc">
+      <strong>Java · Spring Boot · AWS · ServiceNow</strong> — building scalable, enterprise-grade systems at TCS. AWS Certified. Based in Chennai.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:2000030196cse@gmail.com" class="btn btn-fill">Get in touch</a>
+      <a href="SANDEEP_RESUME.pdf" download class="btn">Download CV</a>
+    </div>
+  </div>
+  <span class="scroll-hint">Scroll</span>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span> Java & Spring Boot</div>
+    <div class="marquee-item"><span class="dot"></span> AWS Certified Cloud Practitioner</div>
+    <div class="marquee-item"><span class="dot"></span> AWS Solutions Architect Associate</div>
+    <div class="marquee-item"><span class="dot"></span> ServiceNow Platform</div>
+    <div class="marquee-item"><span class="dot"></span> Autosys Job Scheduler</div>
+    <div class="marquee-item"><span class="dot"></span> Production Support</div>
+    <div class="marquee-item"><span class="dot"></span> Python & Django</div>
+    <div class="marquee-item"><span class="dot"></span> BFSI Domain — Citibank</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><span class="dot"></span> Java & Spring Boot</div>
+    <div class="marquee-item"><span class="dot"></span> AWS Certified Cloud Practitioner</div>
+    <div class="marquee-item"><span class="dot"></span> AWS Solutions Architect Associate</div>
+    <div class="marquee-item"><span class="dot"></span> ServiceNow Platform</div>
+    <div class="marquee-item"><span class="dot"></span> Autosys Job Scheduler</div>
+    <div class="marquee-item"><span class="dot"></span> Production Support</div>
+    <div class="marquee-item"><span class="dot"></span> Python & Django</div>
+    <div class="marquee-item"><span class="dot"></span> BFSI Domain — Citibank</div>
+  </div>
+</div>
+
+<!-- PARALLAX PROJECTS — skiper30 inspired -->
+<div id="projects" style="padding:0;border-top:1px solid var(--line)">
+  <div style="padding:4rem 3rem 2rem">
+    <div class="section-label"><span class="num">01</span> Selected Projects</div>
+  </div>
+  <div id="parallax">
+    <div class="parallax-inner" id="par-inner">
+
+      <div class="par-col" id="col1">
+        <div class="par-card reveal">
+          <div>
+            <div class="par-card-label">Backend System</div>
+            <div class="par-card-title">Grievance Management</div>
+            <div class="par-card-desc">Automated complaint routing to designated admin teams with real-time resolution tracking, eliminating manual handoff delays.</div>
+          </div>
+          <div>
+            <div class="par-card-tech">
+              <span>Java</span><span>Spring Boot</span><span>MySQL</span><span>REST API</span>
+            </div>
+            <a href="https://github.com/sandeepchinnam" target="_blank" class="par-card-link">View on GitHub ↗</a>
+          </div>
+        </div>
+        <div class="par-card reveal reveal-delay-1">
+          <div>
+            <div class="par-card-label">Cloud Platform</div>
+            <div class="par-card-title">AWS Infra Projects</div>
+            <div class="par-card-desc">Hands-on AWS EC2, S3, and Lambda deployments supporting enterprise workflows with high availability and fault tolerance.</div>
+          </div>
+          <div>
+            <div class="par-card-tech">
+              <span>AWS EC2</span><span>S3</span><span>Lambda</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="par-col" id="col2">
+        <div class="par-card reveal">
+          <div>
+            <div class="par-card-label">Full-Stack App</div>
+            <div class="par-card-title">Airline Management</div>
+            <div class="par-card-desc">Full-featured platform with role-based access control for admin flight scheduling and an intuitive search-and-book interface for end users.</div>
+          </div>
+          <div>
+            <div class="par-card-tech">
+              <span>Java</span><span>Spring Security</span><span>MySQL</span>
+            </div>
+          </div>
+        </div>
+        <div class="par-card reveal reveal-delay-2" style="background:var(--amber);border-color:var(--amber)">
+          <div>
+            <div class="par-card-label" style="color:var(--bg)">Research</div>
+            <div class="par-card-title" style="color:var(--bg);font-family:var(--serif);font-style:italic;font-size:1.4rem">NFT Game Security</div>
+            <div class="par-card-desc" style="color:rgba(10,10,9,.7)">Peer-reviewed publication on blockchain integration in gaming security — IJISAE, KL University 2024.</div>
+          </div>
+          <div>
+            <a href="https://ijisae.org/index.php/IJISAE/article/view/5399" target="_blank" class="par-card-link" style="color:var(--bg)">Read Paper ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="par-col" id="col3">
+        <div class="par-card reveal">
+          <div>
+            <div class="par-card-label">Python Backend</div>
+            <div class="par-card-title">Insurance Buddy</div>
+            <div class="par-card-desc">Secure insurance policy generation platform enabling customers to generate, view, and manage coverage with an authenticated workflow.</div>
+          </div>
+          <div>
+            <div class="par-card-tech">
+              <span>Python</span><span>Django</span><span>PostgreSQL</span>
+            </div>
+            <a href="https://github.com/sandeepchinnam" target="_blank" class="par-card-link">View on GitHub ↗</a>
+          </div>
+        </div>
+        <div class="par-card reveal reveal-delay-1">
+          <div>
+            <div class="par-card-label">Design</div>
+            <div class="par-card-title">Campus Events</div>
+            <div class="par-card-desc">Core member of KL University Design Club — led visual design for 3+ campus events covering branding and digital collateral.</div>
+          </div>
+          <div>
+            <div class="par-card-tech">
+              <span>Figma</span><span>Adobe XD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="par-col" id="col4">
+        <div class="par-card reveal">
+          <div>
+            <div class="par-card-label">UI/UX + Dev</div>
+            <div class="par-card-title">Portfolio v1</div>
+            <div class="par-card-desc">Previous personal portfolio — editorial aesthetic with parallax scrolling, custom cursor, and scroll-reveal animations.</div>
+          </div>
+          <div>
+            <div class="par-card-tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
+            <a href="https://my-portfolio-ashenthree-35.vercel.app/" target="_blank" class="par-card-link">Live Site ↗</a>
+          </div>
+        </div>
+        <div class="par-card reveal reveal-delay-2" style="border-color:var(--amber-dim)">
+          <div>
+            <div class="par-card-label" style="color:var(--muted)">Research</div>
+            <div class="par-card-title" style="font-size:1.3rem">Blockchain Sectors</div>
+            <div class="par-card-desc">IEEE Xplore publication — blockchain challenges and solutions across industries.</div>
+          </div>
+          <div>
+            <a href="https://ieeexplore.ieee.org/document/10125283" target="_blank" class="par-card-link">IEEE ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS / ABOUT -->
+<section id="skills">
+  <div class="section-label"><span class="num">02</span> Skills & About</div>
+  <div class="skills-layout">
+    <div class="about-text reveal">
+      <h2>ENGINEER<br>BY <em>craft.</em></h2>
+      <p style="margin-top:2rem">
+        <strong>Java & Spring Boot developer</strong> with 3 deployed projects and hands-on production support experience at Tata Consultancy Services — a Tier 1 IT firm.
+      </p>
+      <p>
+        Supporting <strong>Citibank</strong> workflows with strict BFSI compliance, I reduce incident response times through proactive Autosys monitoring and automated maintenance checks.
+      </p>
+      <p>
+        <strong>AWS Certified</strong> Cloud Practitioner and Solutions Architect Associate. Published researcher in blockchain technology. Unity game dev certified. KL University CSE graduate with 8.85 GPA.
+      </p>
+      <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="https://linkedin.com/in/sandeep939898" target="_blank" class="btn">LinkedIn ↗</a>
+        <a href="https://github.com/sandeepchinnam" target="_blank" class="btn">GitHub ↗</a>
+        <a href="https://myportv2.vercel.app" target="_blank" class="btn">Portfolio v2 ↗</a>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-1">
+      <div class="skill-block">
+        <h4>Languages & Frameworks</h4>
+        <div class="skill-row">
+          <span class="skill-name">Java / Spring Boot</span>
+          <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+          <span class="skill-pct">90</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Python / Django</span>
+          <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+          <span class="skill-pct">78</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SQL / MySQL</span>
+          <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+          <span class="skill-pct">82</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">AWS (EC2/S3/Lambda)</span>
+          <div class="skill-track"><div class="skill-fill" style="width:75%"></div></div>
+          <span class="skill-pct">75</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">HTML / CSS / JS</span>
+          <div class="skill-track"><div class="skill-fill" style="width:70%"></div></div>
+          <span class="skill-pct">70</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h4>Platforms & Tools</h4>
+        <div class="chip-grid">
+          <span class="chip">ServiceNow</span>
+          <span class="chip">Autosys</span>
+          <span class="chip">Git</span>
+          <span class="chip">Linux</span>
+          <span class="chip">Figma</span>
+          <span class="chip">Adobe XD</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">Spring Security</span>
+          <span class="chip">Hibernate</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">BFSI Domain</span>
+          <span class="chip">System Monitoring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label"><span class="num">03</span> Experience</div>
+
+  <div class="exp-row reveal">
+    <div class="exp-meta">
+      <div class="exp-date">May 2025 — Present</div>
+      <div class="exp-company">TCS</div>
+      <div class="exp-role">Jr. System Engineer Trainee</div>
+    </div>
+    <div class="exp-content">
+      <h3>Tata Consultancy Services — BFSI, Citibank</h3>
+      <ul class="exp-bullets">
+        <li>Providing production support and regulatory reporting for Citibank workflows, maintaining strict BFSI compliance standards across daily operations.</li>
+        <li>Reduced incident response time through proactive Autosys job monitoring and automated maintenance checks, ensuring maximum system uptime.</li>
+        <li>Designed and implemented system configurations for enterprise client projects, improving deployment consistency and overall efficiency.</li>
+        <li>Collaborated with cross-functional teams to resolve complex technical issues — optimizing incident resolution workflows in ServiceNow.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-row reveal">
+    <div class="exp-meta">
+      <div class="exp-date">2020 — 2024</div>
+      <div class="exp-company">KL UNIV</div>
+      <div class="exp-role">B.Tech — CSE · GPA 8.85</div>
+    </div>
+    <div class="exp-content">
+      <h3>KL University, Vijayawada — Computer Science Engineering</h3>
+      <ul class="exp-bullets">
+        <li>Graduated with 8.85 GPA. Core member of university Design Club — led visual design for 3+ campus events.</li>
+        <li>Published two peer-reviewed papers on blockchain security (IJISAE & IEEE Xplore).</li>
+        <li>Built and deployed 3 full-stack projects using Java, Spring Boot, Python, and Django.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-label"><span class="num">04</span> Research & Publications</div>
+  <div class="pub-item reveal">
+    <div class="pub-year">2024</div>
+    <div>
+      <div class="pub-title">Enhancing Game Security Through NFT Integration</div>
+      <p class="pub-desc">Comprehensive study on blockchain technology in gaming security — exploring how NFTs create verifiable ownership and tamper-proof game assets. Peer-reviewed, IJISAE, KL University.</p>
+    </div>
+    <a href="https://ijisae.org/index.php/IJISAE/article/view/5399" target="_blank" class="pub-link">Read ↗</a>
+  </div>
+  <div class="pub-item reveal reveal-delay-1">
+    <div class="pub-year">2023</div>
+    <div>
+      <div class="pub-title">Blockchain Technology in Different Sectors: Challenges and Solutions</div>
+      <p class="pub-desc">Extensive analysis of blockchain applications and implementation challenges across industries. Published on IEEE Xplore.</p>
+    </div>
+    <a href="https://ieeexplore.ieee.org/document/10125283" target="_blank" class="pub-link">Read ↗</a>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label"><span class="num">05</span> Certifications</div>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <span class="cert-icon">☁️</span>
+      <div class="cert-issuer">Amazon Web Services</div>
+      <div class="cert-title">AWS Certified Cloud Practitioner</div>
+      <a href="https://drive.google.com/file/d/1NqjuswJ3ruw3Fz-KkqMT3Gw9mNiqBcEL/view" target="_blank" class="cert-link">View Certificate →</a>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <span class="cert-icon">🏗️</span>
+      <div class="cert-issuer">Amazon Web Services</div>
+      <div class="cert-title">AWS Solutions Architect Associate</div>
+      <a href="#" class="cert-link">View Certificate →</a>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <span class="cert-icon">🎮</span>
+      <div class="cert-issuer">Unity Technologies</div>
+      <div class="cert-title">Unity Certified User: Programmer</div>
+      <a href="https://drive.google.com/file/d/1Od6VShEMmM7wcwDFhdHzsWJkak7akmaz/view" target="_blank" class="cert-link">View Certificate →</a>
+    </div>
+    <div class="cert-card reveal reveal-delay-3">
+      <span class="cert-icon">🔴</span>
+      <div class="cert-issuer">Red Hat</div>
+      <div class="cert-title">Red Hat Certified Enterprise Application Developer</div>
+      <a href="https://drive.google.com/file/d/1ts0uxjr9G0ziumTuuZnJO7quN_TnS3He/view" target="_blank" class="cert-link">View Certificate →</a>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <span class="cert-icon">⚡</span>
+      <div class="cert-issuer">EPAM Systems</div>
+      <div class="cert-title">EPAM Frontend Developer Certification</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <span class="cert-icon">☕</span>
+      <div class="cert-issuer">LinkedIn Learning</div>
+      <div class="cert-title">Java Database Access with Hibernate · Become a Spring Developer</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-top:1px solid var(--line);padding:0">
+  <div class="contact-left">
+    <div class="section-label" style="color:var(--muted)"><span class="num">06</span> Contact</div>
+    <h2>LET'S<br>BUILD<br><em>SOMETHING.</em></h2>
+    <p style="margin-top:2rem;font-size:.8rem;line-height:1.9;color:var(--muted);max-width:300px">
+      Open to backend engineering roles, cloud architecture, and interesting problems. Based in Chennai.
+    </p>
+  </div>
+  <div class="contact-right">
+    <div>
+      <a href="mailto:2000030196cse@gmail.com" class="contact-link-row">
+        <div><div class="cl-label">Email</div><div class="cl-value">2000030196cse@gmail.com</div></div>
+        <span class="cl-arrow">↗</span>
+      </a>
+      <a href="https://github.com/sandeepchinnam" target="_blank" class="contact-link-row">
+        <div><div class="cl-label">GitHub</div><div class="cl-value">github.com/sandeepchinnam</div></div>
+        <span class="cl-arrow">↗</span>
+      </a>
+      <a href="https://linkedin.com/in/sandeep939898" target="_blank" class="contact-link-row">
+        <div><div class="cl-label">LinkedIn</div><div class="cl-value">linkedin.com/in/sandeep939898</div></div>
+        <span class="cl-arrow">↗</span>
+      </a>
+      <a href="tel:+919398981676" class="contact-link-row">
+        <div><div class="cl-label">Phone</div><div class="cl-value">+91 93989 81676</div></div>
+        <span class="cl-arrow">↗</span>
+      </a>
+    </div>
+    <div class="contact-avail">Open to full-time &amp; contract roles</div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">SC.</span>
+  <p>© 2025 Chinnam Sandeep — All Rights Reserved</p>
+  <p>Chennai, Tamil Nadu, India</p>
+</footer>
+
+<script>
+// SPRING CURSOR — adapted from skiper61
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+const spring = 0.1, damping = 0.75;
+let vx=0,vy=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+
+function animRing(){
+  const dx=mx-rx, dy=my-ry;
+  vx=(vx+dx*spring)*damping;
+  vy=(vy+dy*spring)*damping;
+  rx+=vx; ry+=vy;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+// PARALLAX — adapted from skiper30 approach (scroll-driven column offsets)
+const parInner = document.getElementById('par-inner');
+const cols = [
+  {el:document.getElementById('col1'), speed:0.06},
+  {el:document.getElementById('col2'), speed:0.14},
+  {el:document.getElementById('col3'), speed:0.04},
+  {el:document.getElementById('col4'), speed:0.10},
+];
+
+function onScroll(){
+  const parSection = document.getElementById('parallax');
+  if(!parSection) return;
+  const rect = parSection.getBoundingClientRect();
+  const progress = -rect.top / (parSection.offsetHeight - window.innerHeight);
+  const clamped = Math.max(0, Math.min(1, progress));
+
+  cols.forEach((c,i)=>{
+    const baseOffsets = [-15, -45, -10, -35]; // initial % offsets
+    const travel = window.innerHeight * c.speed * 100;
+    const y = baseOffsets[i] + clamped * 60;
+    if(c.el) c.el.style.transform = `translateY(${y}%)`;
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  });
+},{threshold:.12});
+reveals.forEach(el=>io.observe(el));
+
+// SKILL BARS
+const fills = document.querySelectorAll('.skill-fill');
+const sio = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('animate');sio.unobserve(e.target)}
+  });
+},{threshold:.5});
+fills.forEach(el=>sio.observe(el));
+</script>
+</body>
+</html>

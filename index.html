@@ -36,7 +36,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none;transition:background .4s,color .4s}
 
-/* CURSOR — Skiper61 spring */
+/* CURSOR */
 #cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .3s}
 #cur-ring{position:fixed;width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:.42;transition:width .35s,height .35s,opacity .35s,border-color .3s}
 body.ch #cur{width:16px;height:16px}
@@ -49,7 +49,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--text-muted);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
 .nav-links a:hover{color:var(--gold)}
-/* theme toggle */
 #tog{width:48px;height:26px;background:var(--tog-bg);border:1px solid var(--border-dim);border-radius:13px;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0}
 #tog::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--tog-knob);border-radius:50%;transition:transform .3s,background .3s}
 [data-theme="light"] #tog::after{transform:translateX(22px)}
@@ -105,31 +104,20 @@ section{padding:8rem 3rem;position:relative;transition:background .4s}
 .exp-ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
 .exp-ul li{font-size:.83rem;line-height:1.65;color:var(--text-mid);padding-left:1.25rem;position:relative}
 .exp-ul li::before{content:'→';position:absolute;left:0;color:var(--gold-dim);font-size:.72rem}
-.pub-card{border:1px solid var(--border-dim);padding:2.5rem;margin-top:3rem;position:relative;background:var(--bg3);transition:border-color .3s,background .4s}
+
+/* PUB GRID */
+.pub-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.pub-card{border:1px solid var(--border-dim);padding:2.5rem;position:relative;background:var(--bg3);transition:border-color .3s,background .4s}
 .pub-card:hover{border-color:var(--border)}
 .pub-label{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gold);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.85rem}
 .pub-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:.6rem;transition:color .4s}
 .pub-meta{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted)}
 .pub-q{position:absolute;top:1.5rem;right:2rem;font-family:'DM Serif Display',serif;font-size:5rem;color:var(--gold-glow);line-height:1;pointer-events:none}
 
-/* SKIPER30 */
-#s30{height:175vh;position:relative;overflow:hidden;background:var(--bg);transition:background .4s}
-.s30-top{position:absolute;top:2rem;left:50%;transform:translateX(-50%);z-index:5;font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.15em;text-align:center;white-space:nowrap}
-.s30-mid{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;z-index:3;pointer-events:none}
-.s30-mid h2{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3.5rem);color:var(--text);letter-spacing:-.02em;line-height:1.15;text-align:center;transition:color .4s}
-.s30-mid h2 em{color:var(--gold);font-style:italic}
-.s30-gal{position:absolute;inset:0;display:flex;gap:clamp(6px,1.2vw,18px);padding:clamp(6px,1.2vw,18px);pointer-events:none}
-.s30-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:clamp(6px,1.2vw,18px);will-change:transform}
-#s30c1{margin-top:-45%}#s30c2{margin-top:-95%}#s30c3{margin-top:-45%}#s30c4{margin-top:-75%}
-.s30-blk{flex-shrink:0;border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border-dim);transition:background .4s,border-color .3s}
-.s30-col:nth-child(odd) .s30-blk{background:var(--bg3)}
-.s30-col:nth-child(even) .s30-blk{background:var(--bg4)}
-.s30-blk span{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--gold-dim);text-transform:uppercase;letter-spacing:.15em;position:relative;z-index:1;transition:color .3s}
-
 /* PROJECTS */
 .proj-hdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem}
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);border:1px solid var(--border-dim)}
-.pc{background:var(--bg2);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s;text-decoration:none;color:inherit;display:block}
+.pc{background:var(--bg2);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s;text-decoration:none;color:inherit;display:block;height:100%}
 .pc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-glow) 0%,transparent 55%);opacity:0;transition:opacity .3s}
 .pc:hover{background:var(--bg3)}.pc:hover::before{opacity:1}
 .pc-num{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--text-muted);letter-spacing:.1em;margin-bottom:2rem}
@@ -140,15 +128,7 @@ section{padding:8rem 3rem;position:relative;transition:background .4s}
 .pc-arr{position:absolute;top:2rem;right:2rem;font-size:1.1rem;color:var(--gold-dim);transition:transform .3s,color .2s}
 .pc:hover .pc-arr{transform:translate(4px,-4px);color:var(--gold)}
 
-/* SKIPER39 */
-#s39{position:relative;height:480px;overflow:hidden;background:var(--bg2);transition:background .4s}
-.s39-head{position:absolute;top:2.5rem;left:50%;transform:translateX(-50%);text-align:center;z-index:2;pointer-events:none;white-space:nowrap}
-.s39-head p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gold);text-transform:uppercase;letter-spacing:.2em;margin-bottom:.5rem}
-.s39-head h2{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--text);letter-spacing:-.02em;transition:color .4s}
-.s39-head h2 em{color:var(--gold);font-style:italic}
-#ccv{position:absolute;bottom:0;left:0;right:0;height:88%;width:100%}
-
-/* SKILLS */
+/* SKILLS, EDU, CONTACT etc remains same */
 .sk-layout{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:start}
 .sk-left{position:sticky;top:7rem}
 .sk-right{display:grid;gap:1.6rem}
@@ -162,7 +142,6 @@ section{padding:8rem 3rem;position:relative;transition:background .4s}
 .cert{display:flex;align-items:center;gap:.55rem;padding:.45rem .85rem;background:var(--bg3);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;transition:background .4s}
 .cdot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
 
-/* EDU */
 .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dim);border:1px solid var(--border-dim);margin-top:4rem}
 .ec{background:var(--bg2);padding:2rem 1.7rem;transition:background .3s}
 .ec:hover{background:var(--bg3)}
@@ -171,7 +150,6 @@ section{padding:8rem 3rem;position:relative;transition:background .4s}
 .ed{font-size:.76rem;color:var(--text-muted);margin-bottom:.55rem}
 .eg{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--gold-dim)}
 
-/* CONTACT */
 #contact{text-align:center}
 .ct-inner{max-width:600px;margin:0 auto}
 .ct-big{font-family:'DM Serif Display',serif;font-size:clamp(3rem,8vw,6rem);line-height:1;color:var(--text);letter-spacing:-.02em;margin-bottom:2rem;transition:color .4s}
@@ -183,18 +161,16 @@ section{padding:8rem 3rem;position:relative;transition:background .4s}
 .ct-email:hover{color:var(--gold-light)}
 .ct-ph{display:block;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);letter-spacing:.1em}
 
-/* FOOTER */
 footer{padding:1.75rem 3rem;border-top:1px solid var(--border-dim);display:flex;justify-content:space-between;align-items:center;background:var(--bg2);transition:background .4s}
 footer p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted);letter-spacing:.08em}
 
-/* REVEAL */
 .rev{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
 .rev.vis{opacity:1;transform:none}
 
 @media(max-width:900px){
   nav{padding:1rem 1.5rem}.nav-links{display:none}
   section,#hero{padding-left:1.5rem;padding-right:1.5rem}
-  .hero-grid,.exp-hdr,.proj-hdr,.sk-layout{grid-template-columns:1fr;gap:2rem}
+  .hero-grid,.exp-hdr,.proj-hdr,.sk-layout,.pub-grid{grid-template-columns:1fr;gap:2rem}
   .proj-grid,.edu-grid{grid-template-columns:1fr}
   .exp-item{grid-template-columns:1fr;gap:1rem}
   footer{flex-direction:column;gap:1rem;text-align:center}
@@ -212,7 +188,6 @@ footer p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted)
     <ul class="nav-links">
       <li><a href="#exp">Experience</a></li>
       <li><a href="#proj">Projects</a></li>
-      <li><a href="#s39">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -222,7 +197,6 @@ footer p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted)
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-ghost">SANDEEP</div>
   <div class="hero-grid">
@@ -231,138 +205,105 @@ footer p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted)
       <h1 class="hero-name">Sandeep<br><em>Chinnam</em></h1>
     </div>
     <div class="rev" style="transition-delay:.15s">
-      <p class="hero-sum">Java &amp; Spring Boot developer with deployed production systems and Tier 1 enterprise support experience. AWS Certified. Building scalable, resilient backend infrastructure.</p>
+      <p class="hero-sum">Java &amp; Spring Boot developer specializing in production-grade backend infrastructure. Deployed end-to-end systems with high reliability. AWS Certified.</p>
       <div class="hero-stats">
-        <div><div class="sn">3+</div><div class="sl">Deployed Projects</div></div>
-        <div><div class="sn">8.85</div><div class="sl">GPA · KL Univ</div></div>
+        <div><div class="sn">8+</div><div class="sl">Shipped Systems</div></div>
+        <div><div class="sn">2</div><div class="sl">Pubs · KL Univ</div></div>
         <div><div class="sn">1+</div><div class="sl">Year @ TCS</div></div>
       </div>
       <div class="ctas">
         <a href="mailto:2000030196cse@gmail.com" class="btn-g">Hire Me</a>
-        <a href="https://myportv2.vercel.app" target="_blank" class="btn-o">Portfolio ↗</a>
+        <a href="https://github.com/sandeepchinnam" target="_blank" class="btn-o">GitHub ↗</a>
       </div>
     </div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- TICKER -->
-<div class="tkr-wrap">
-  <div class="tkr-track">
-    <span class="tkr-item">Java</span><span class="tkr-item">Spring Boot</span>
-    <span class="tkr-item">AWS EC2 &amp; S3</span><span class="tkr-item">ServiceNow</span>
-    <span class="tkr-item">Autosys</span><span class="tkr-item">Python Django</span>
-    <span class="tkr-item">MySQL</span><span class="tkr-item">Production Support</span>
-    <span class="tkr-item">REST API</span><span class="tkr-item">BFSI Compliance</span>
-    <span class="tkr-item">Java</span><span class="tkr-item">Spring Boot</span>
-    <span class="tkr-item">AWS EC2 &amp; S3</span><span class="tkr-item">ServiceNow</span>
-    <span class="tkr-item">Autosys</span><span class="tkr-item">Python Django</span>
-    <span class="tkr-item">MySQL</span><span class="tkr-item">Production Support</span>
-    <span class="tkr-item">REST API</span><span class="tkr-item">BFSI Compliance</span>
-  </div>
-</div>
-
-<!-- EXPERIENCE -->
 <section id="exp" class="sd">
   <div class="exp-hdr">
-    <div><p class="sec-label">01 — Work</p><h2 class="sec-title">Where I've<br><em>shipped</em></h2></div>
-    <p class="exp-intro rev">Currently building enterprise systems at TCS, supporting Citibank's regulatory workflows across BFSI. Focused on reliability, zero downtime, and scalable automation.</p>
+    <div><p class="sec-label">01 — Research</p><h2 class="sec-title">Publications &amp;<br><em>Insights</em></h2></div>
+    <p class="exp-intro rev">Academic research focused on security integration and decentralized technologies, published in peer-reviewed journals during B.Tech.</p>
   </div>
-  <div class="exp-item rev">
-    <div><p class="exp-date">05/2025 – Present</p><p class="exp-co">Tata Consultancy Services</p></div>
-    <div>
-      <h3 class="exp-role">Jr. System Engineer Trainee</h3>
-      <ul class="exp-ul">
-        <li>Production support &amp; regulatory reporting for Citibank workflows — strict BFSI compliance across daily operations</li>
-        <li>Reduced incident response time via proactive Autosys job monitoring and automated maintenance checks</li>
-        <li>Designed system configurations for enterprise client projects; improved deployment consistency</li>
-        <li>Optimised incident resolution workflows in ServiceNow across cross-functional teams</li>
-      </ul>
+  
+  <div class="pub-grid">
+    <div class="pub-card rev">
+      <div class="pub-q">"</div>
+      <p class="pub-label">Journal Publication · 2024</p>
+      <h3 class="pub-title">Enhancing Game Security Through NFT Integration</h3>
+      <p class="pub-meta">IJISAE · KL University, 2024</p>
     </div>
-  </div>
-  <div class="pub-card rev">
-    <div class="pub-q">"</div>
-    <p class="pub-label">Peer-reviewed Publication · 2024</p>
-    <h3 class="pub-title">Enhancing Game Security Through NFT Integration</h3>
-    <p class="pub-meta">IJISAE · KL University, 2024</p>
+    <div class="pub-card rev" style="transition-delay: .1s">
+      <div class="pub-q">"</div>
+      <p class="pub-label">Literature Review · 2024</p>
+      <h3 class="pub-title">A Review of Blockchain Technology in Different Sectors: Challenges and Solutions</h3>
+      <p class="pub-meta">KL University Research, 2024</p>
+    </div>
   </div>
 </section>
 
-<!-- SKIPER30 PARALLAX -->
-<div id="s30">
-  <p class="s30-top">Skiper30 · Parallax Gallery · Scroll ↓</p>
-  <div class="s30-gal">
-    <div class="s30-col" id="s30c1">
-      <div class="s30-blk" style="height:260px"><span>Java</span></div>
-      <div class="s30-blk" style="height:320px"><span>Spring Boot</span></div>
-      <div class="s30-blk" style="height:280px"><span>REST API</span></div>
-    </div>
-    <div class="s30-col" id="s30c2">
-      <div class="s30-blk" style="height:300px"><span>AWS Cloud</span></div>
-      <div class="s30-blk" style="height:250px"><span>Autosys</span></div>
-      <div class="s30-blk" style="height:290px"><span>ServiceNow</span></div>
-    </div>
-    <div class="s30-col" id="s30c3">
-      <div class="s30-blk" style="height:280px"><span>MySQL</span></div>
-      <div class="s30-blk" style="height:310px"><span>Django</span></div>
-      <div class="s30-blk" style="height:270px"><span>Python</span></div>
-    </div>
-    <div class="s30-col" id="s30c4">
-      <div class="s30-blk" style="height:270px"><span>Figma</span></div>
-      <div class="s30-blk" style="height:300px"><span>Git</span></div>
-      <div class="s30-blk" style="height:290px"><span>Linux</span></div>
-    </div>
-  </div>
-  <div class="s30-mid">
-    <h2>Systems that<br><em>hold</em> under pressure</h2>
-  </div>
-</div>
-
-<!-- PROJECTS -->
-<section id="proj" class="sd">
+<section id="proj" class="sl2">
   <div class="proj-hdr">
     <div><p class="sec-label">02 — Build</p><h2 class="sec-title">Things I've<br><em>built</em></h2></div>
-    <p class="exp-intro rev" style="align-self:end">Three backend systems deployed end-to-end — auth, REST APIs, and role-based access control.</p>
+    <p class="exp-intro rev" style="align-self:end">A collection of full-stack and backend systems covering Enterprise, E-commerce, and Tooling.</p>
   </div>
   <div class="proj-grid">
-    <a href="https://github.com/sandeepchinnam" target="_blank" class="pc rev">
+    <a href="#" class="pc rev">
       <p class="pc-num">001</p><span class="pc-arr">↗</span>
-      <h3 class="pc-name">Grievance Management System</h3>
-      <p class="pc-desc">Automated complaint routing to designated admin teams with real-time resolution tracking.</p>
-      <div class="pc-stack"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">MySQL</span><span class="tag">REST API</span></div>
+      <h3 class="pc-name">LOGIS</h3>
+      <p class="pc-desc">System for managing goods, tracking orders, and facilitating order placements across locations.</p>
+      <div class="pc-stack"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">React</span></div>
     </a>
     <a href="#" class="pc rev" style="transition-delay:.1s">
       <p class="pc-num">002</p><span class="pc-arr">↗</span>
-      <h3 class="pc-name">Airline Management System</h3>
-      <p class="pc-desc">Full-featured platform with RBAC for admin flight scheduling and intuitive search-and-book for users.</p>
-      <div class="pc-stack"><span class="tag">Java</span><span class="tag">Spring Security</span><span class="tag">Spring Boot</span><span class="tag">MySQL</span></div>
-    </a>
-    <a href="https://github.com/sandeepchinnam" target="_blank" class="pc rev" style="transition-delay:.2s">
-      <p class="pc-num">003</p><span class="pc-arr">↗</span>
       <h3 class="pc-name">Insurance Buddy</h3>
-      <p class="pc-desc">Secure insurance policy generation — generate, view, and manage coverage with full auth workflow.</p>
-      <div class="pc-stack"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">PostgreSQL</span><span class="tag">Django Auth</span></div>
+      <p class="pc-desc">Enabling customers to create and manage insurance policies effortlessly with secure workflows.</p>
+      <div class="pc-stack"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">PostgreSQL</span></div>
     </a>
+    <a href="#" class="pc rev" style="transition-delay:.2s">
+      <p class="pc-num">003</p><span class="pc-arr">↗</span>
+      <h3 class="pc-name">Grievance System</h3>
+      <p class="pc-desc">Enterprise system for organizations to address employee and customer grievances efficiently.</p>
+      <div class="pc-stack"><span class="tag">Java</span><span class="tag">Enterprise Programming</span></div>
+    </a>
+    <a href="#" class="pc rev">
+      <p class="pc-num">004</p><span class="pc-arr">↗</span>
+      <h3 class="pc-name">Gym Rental System</h3>
+      <p class="pc-desc">Platform providing rental services for gym equipment to individuals with real-time availability.</p>
+      <div class="pc-stack"><span class="tag">MEAN Stack</span><span class="tag">MongoDB</span></div>
+    </a>
+    <a href="#" class="pc rev" style="transition-delay:.1s">
+      <p class="pc-num">005</p><span class="pc-arr">↗</span>
+      <h3 class="pc-name">Blog Management</h3>
+      <p class="pc-desc">Content management platform providing full-scale blog services for creators and users.</p>
+      <div class="pc-stack"><span class="tag">Python</span><span class="tag">Django</span></div>
+    </a>
+    <a href="#" class="pc rev" style="transition-delay:.2s">
+      <p class="pc-num">006</p><span class="pc-arr">↗</span>
+      <h3 class="pc-name">Simple Tools</h3>
+      <p class="pc-desc">Utility platform providing QR code generation, URL shorteners, and various helper scripts.</p>
+      <div class="pc-stack"><span class="tag">Python</span></div>
+    </a>
+    <a href="#" class="pc rev">
+        <p class="pc-num">007</p><span class="pc-arr">↗</span>
+        <h3 class="pc-name">Cookies Chef</h3>
+        <p class="pc-desc">Interactive front-end discovery platform for users to explore and save cooking recipes.</p>
+        <div class="pc-stack"><span class="tag">React.js</span><span class="tag">UI/UX</span></div>
+      </a>
+      <a href="#" class="pc rev" style="transition-delay:.1s">
+        <p class="pc-num">008</p><span class="pc-arr">↗</span>
+        <h3 class="pc-name">Airline Management</h3>
+        <p class="pc-desc">Scheduling and booking system with role-based access control for admins and travelers.</p>
+        <div class="pc-stack"><span class="tag">Java</span><span class="tag">Spring Security</span></div>
+      </a>
   </div>
 </section>
 
-<!-- SKIPER39 CROWD CANVAS -->
-<div id="s39">
-  <div class="s39-head">
-    <p>Skiper39 · Crowd Canvas</p>
-    <h2>Backed by a<br><em>team mindset</em></h2>
-  </div>
-  <canvas id="ccv"></canvas>
-</div>
-
-<!-- SKILLS -->
 <section id="skills" class="sd">
   <div class="sk-layout">
     <div class="sk-left rev">
       <p class="sec-label">03 — Stack</p>
       <h2 class="sec-title">Tools &amp;<br><em>expertise</em></h2>
-      <br>
-      <p style="font-size:.82rem;line-height:1.7;color:var(--text-mid);max-width:28ch;margin-bottom:1.5rem">Core member of university Design Club — led visual design for 3+ campus events.</p>
       <div class="certs">
         <div class="cert"><span class="cdot"></span>AWS CCP</div>
         <div class="cert"><span class="cdot"></span>EPAM Frontend</div>
@@ -370,40 +311,33 @@ footer p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted)
       </div>
     </div>
     <div class="sk-right">
-      <div class="sg rev"><p class="sg-lbl">Primary Languages</p><div class="pills"><span class="pill p">Java</span><span class="pill p">Python</span><span class="pill">SQL</span><span class="pill">HTML/CSS</span></div></div>
-      <div class="sg rev" style="transition-delay:.05s"><p class="sg-lbl">Frameworks</p><div class="pills"><span class="pill p">Spring Boot</span><span class="pill p">Django</span><span class="pill">Spring Security</span><span class="pill">REST API</span></div></div>
-      <div class="sg rev" style="transition-delay:.1s"><p class="sg-lbl">Cloud &amp; Infrastructure</p><div class="pills"><span class="pill p">AWS EC2</span><span class="pill p">AWS S3</span><span class="pill">Lambda</span><span class="pill">Linux</span></div></div>
-      <div class="sg rev" style="transition-delay:.15s"><p class="sg-lbl">Databases</p><div class="pills"><span class="pill p">MySQL</span><span class="pill p">PostgreSQL</span></div></div>
-      <div class="sg rev" style="transition-delay:.2s"><p class="sg-lbl">Enterprise Platforms</p><div class="pills"><span class="pill p">ServiceNow</span><span class="pill p">Autosys</span><span class="pill">System Monitoring</span><span class="pill">BFSI Compliance</span></div></div>
-      <div class="sg rev" style="transition-delay:.25s"><p class="sg-lbl">Design &amp; Tools</p><div class="pills"><span class="pill">Figma</span><span class="pill">Adobe XD</span><span class="pill">Git</span></div></div>
+      <div class="sg rev"><p class="sg-lbl">Primary Languages</p><div class="pills"><span class="pill p">Java</span><span class="pill p">Python</span><span class="pill">SQL</span><span class="pill">JavaScript</span></div></div>
+      <div class="sg rev"><p class="sg-lbl">Frameworks</p><div class="pills"><span class="pill p">Spring Boot</span><span class="pill p">Django</span><span class="pill">React.js</span><span class="pill">MEAN Stack</span></div></div>
+      <div class="sg rev"><p class="sg-lbl">Cloud &amp; Infrastructure</p><div class="pills"><span class="pill p">AWS EC2</span><span class="pill p">AWS S3</span><span class="pill">ServiceNow</span><span class="pill">Autosys</span></div></div>
+      <div class="sg rev"><p class="sg-lbl">Databases</p><div class="pills"><span class="pill p">MySQL</span><span class="pill p">PostgreSQL</span><span class="pill">MongoDB</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- EDUCATION -->
 <section id="edu" class="sl2">
-  <p class="sec-label rev">04 — Education</p>
-  <h2 class="sec-title rev">Academic<br><em>foundation</em></h2>
-  <div class="edu-grid">
-    <div class="ec rev"><p class="ey">2024</p><h3 class="ei">KL University</h3><p class="ed">B.Tech – Computer Science Engineering</p><p class="eg">GPA · 8.85</p></div>
-    <div class="ec rev" style="transition-delay:.1s"><p class="ey">2020</p><h3 class="ei">Narayana Jr. College</h3><p class="ed">Intermediate — Science</p><p class="eg">GPA · 7.46</p></div>
-    <div class="ec rev" style="transition-delay:.2s"><p class="ey">2018</p><h3 class="ei">Narayana E-Techno School</h3><p class="ed">Secondary Education</p><p class="eg">GPA · 9.3</p></div>
-  </div>
-</section>
+    <p class="sec-label rev">04 — Education</p>
+    <h2 class="sec-title rev">Academic<br><em>foundation</em></h2>
+    <div class="edu-grid">
+      <div class="ec rev"><p class="ey">2024</p><h3 class="ei">KL University</h3><p class="ed">B.Tech – Computer Science Engineering</p><p class="eg">GPA · 8.85</p></div>
+      <div class="ec rev" style="transition-delay:.1s"><p class="ey">2020</p><h3 class="ei">Narayana Jr. College</h3><p class="ed">Intermediate — Science</p><p class="eg">GPA · 7.46</p></div>
+      <div class="ec rev" style="transition-delay:.2s"><p class="ey">2018</p><h3 class="ei">Narayana E-Techno School</h3><p class="ed">Secondary Education</p><p class="eg">GPA · 9.3</p></div>
+    </div>
+  </section>
 
-<!-- CONTACT -->
 <section id="contact" class="sd">
   <div class="ct-inner">
     <h2 class="ct-big rev">Let's<br><em>build</em><br>together</h2>
     <div class="ct-links rev">
       <a href="https://github.com/sandeepchinnam" target="_blank" class="ct-link">GitHub</a>
       <a href="https://linkedin.com/in/sandeep939898" target="_blank" class="ct-link">LinkedIn</a>
-      <a href="https://myportv2.vercel.app" target="_blank" class="ct-link">Portfolio</a>
     </div>
     <a href="mailto:2000030196cse@gmail.com" class="ct-email rev">2000030196cse@gmail.com</a>
     <span class="ct-ph rev">+91 93989 81676 · Vijayawada, India</span>
-    <br><br>
-    <a href="mailto:2000030196cse@gmail.com" class="btn-g rev" style="margin-top:1.5rem;display:inline-block">Get In Touch</a>
   </div>
 </section>
 
@@ -413,21 +347,19 @@ footer p{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text-muted)
 </footer>
 
 <script>
-/* ══ SKIPER61 — SPRING CURSOR ══ */
+/* SPRING CURSOR */
 const cur = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mX = innerWidth/2, mY = innerHeight/2;
 let rX = mX, rY = mY, vX = 0, vY = 0;
-const K = 131, D = 10, M = .1; // stiffness, damping, mass
+const K = 131, D = 10, M = .1; 
 
 document.addEventListener('mousemove', e => {
   mX = e.clientX; mY = e.clientY;
   cur.style.left = mX+'px'; cur.style.top = mY+'px';
 });
-document.addEventListener('mouseleave', () => { cur.style.opacity='0'; curR.style.opacity='0'; });
-document.addEventListener('mouseenter', () => { cur.style.opacity='1'; curR.style.opacity='.42'; });
 
-document.querySelectorAll('a,button,.pc,.pill,.ec,.exp-item').forEach(el => {
+document.querySelectorAll('a,button,.pc,.pill,.ec').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
 });
@@ -442,151 +374,18 @@ document.querySelectorAll('a,button,.pc,.pill,.ec,.exp-item').forEach(el => {
   requestAnimationFrame(springLoop);
 })();
 
-/* ══ THEME TOGGLE ══ */
+/* THEME TOGGLE */
 const html = document.documentElement;
 document.getElementById('tog').addEventListener('click', () => {
   const next = html.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
-  try { localStorage.setItem('sc-theme', next); } catch(e){}
 });
-try {
-  const saved = localStorage.getItem('sc-theme');
-  if (saved) html.setAttribute('data-theme', saved);
-  else if (matchMedia('(prefers-color-scheme: light)').matches) html.setAttribute('data-theme','light');
-} catch(e){}
 
-/* ══ SKIPER30 — PARALLAX ══
-   Mirrors: y=h*2, y2=h*3.3, y3=h*1.25, y4=h*3
-   progress: [start end, end start] = when gallery enters bottom → leaves top
-*/
-(function(){
-  const gal = document.getElementById('s30');
-  const cols = [
-    {el:document.getElementById('s30c1'), f:2},
-    {el:document.getElementById('s30c2'), f:3.3},
-    {el:document.getElementById('s30c3'), f:1.25},
-    {el:document.getElementById('s30c4'), f:3},
-  ];
-  let raf;
-  function tick() {
-    const r = gal.getBoundingClientRect();
-    const winH = innerHeight;
-    const total = r.height + winH;
-    const traveled = winH - r.top;
-    const p = Math.min(1, Math.max(0, traveled/total));
-    const h = winH;
-    cols.forEach(({el,f}) => {
-      el.style.transform = `translateY(${p*h*f}px)`;
-    });
-    raf = requestAnimationFrame(tick);
-  }
-  function vis(e) {
-    if (e[0].isIntersecting) { if(!raf) tick(); }
-    else { cancelAnimationFrame(raf); raf=null; }
-  }
-  new IntersectionObserver(vis,{threshold:0}).observe(gal);
-})();
-
-/* ══ SKIPER39 — CROWD CANVAS ══
-   Pure canvas peep walkers (no gsap — rAF based)
-   Peep shape: head + body + arms + legs, walking bob
-*/
-(function(){
-  const canvas = document.getElementById('ccv');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const TOTAL = 40;
-  let peeps = [], frame = 0, animId;
-
-  const DC = ['#1c1c1c','#2a2a2a','#242424','#181818','#303030','#222222'];
-  const LC = ['#e0dbd2','#d5d0c7','#cac4bc','#e8e4dc','#dbd6ce','#d0cbc2'];
-  function themeColors() {
-    return html.getAttribute('data-theme')==='dark' ? DC : LC;
-  }
-
-  function rnd(a,b){return a+Math.random()*(b-a)}
-
-  function spawn(id, stagger) {
-    const sw = canvas.width, sh = canvas.height;
-    const dir = Math.random()>.5 ? 1 : -1;
-    const w = rnd(18,38), h = rnd(52,85);
-    const yOff = rnd(-sh*.12, sh*.3);
-    return {
-      id, dir, w, h,
-      x: stagger ? rnd(0,sw) : (dir===1 ? -w-5 : sw+w+5),
-      y: sh - h + yOff,
-      speed: rnd(.35,1.1)*dir,
-      bob: rnd(1.5,4), freq: rnd(.04,.08),
-      phase: rnd(0,Math.PI*2),
-      ci: Math.floor(Math.random()*6),
-    };
-  }
-
-  function drawPeep(p) {
-    const colors = themeColors();
-    ctx.save();
-    ctx.translate(p.x, p.y + Math.sin(p.phase + frame*p.freq)*p.bob);
-    if (p.dir < 0) { ctx.translate(p.w,0); ctx.scale(-1,1); }
-    ctx.fillStyle = colors[p.ci];
-    const hr = p.w*.27;
-    ctx.beginPath(); ctx.arc(p.w/2, hr, hr, 0, Math.PI*2); ctx.fill();
-    const bt = hr*2+2, bh = p.h*.37;
-    ctx.fillRect(p.w*.22, bt, p.w*.56, bh);
-    const t = frame*p.freq*2 + p.phase;
-    // arms
-    ctx.save(); ctx.translate(p.w*.18, bt+3); ctx.rotate(Math.sin(t)*.3-.15);
-    ctx.fillRect(-p.w*.08,0,p.w*.13,bh*.65); ctx.restore();
-    ctx.save(); ctx.translate(p.w*.82, bt+3); ctx.rotate(-Math.sin(t)*.3+.15);
-    ctx.fillRect(-p.w*.05,0,p.w*.13,bh*.65); ctx.restore();
-    // legs
-    const lt = bt+bh, lh = Math.max(4, p.h-lt);
-    ctx.save(); ctx.translate(p.w*.33, lt); ctx.rotate(Math.sin(t)*.38);
-    ctx.fillRect(-p.w*.09,0,p.w*.2,lh); ctx.restore();
-    ctx.save(); ctx.translate(p.w*.65, lt); ctx.rotate(-Math.sin(t)*.38);
-    ctx.fillRect(-p.w*.11,0,p.w*.2,lh); ctx.restore();
-    ctx.restore();
-  }
-
-  function resize() {
-    canvas.width  = canvas.clientWidth  || canvas.offsetWidth  || 800;
-    canvas.height = canvas.clientHeight || canvas.offsetHeight || 400;
-    peeps = Array.from({length:TOTAL}, (_,i) => spawn(i, true));
-  }
-
-  function loop() {
-    frame++;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const sw = canvas.width;
-    peeps.sort((a,b)=>a.y-b.y).forEach(p => {
-      p.x += p.speed;
-      if (p.dir===1 && p.x > sw+50) Object.assign(p, spawn(p.id,false));
-      if (p.dir===-1 && p.x < -p.w-50) Object.assign(p, spawn(p.id,false));
-      drawPeep(p);
-    });
-    animId = requestAnimationFrame(loop);
-  }
-
-  let rt;
-  window.addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(resize,100); });
-  new MutationObserver(()=>{ peeps.forEach(p=>p.ci=Math.floor(Math.random()*6)); })
-    .observe(html,{attributes:true,attributeFilter:['data-theme']});
-
-  new IntersectionObserver(([e])=>{
-    if (e.isIntersecting) { if(!animId){resize();loop();} }
-    else { cancelAnimationFrame(animId); animId=null; }
-  },{threshold:.05}).observe(canvas);
-
-  resize(); loop();
-})();
-
-/* ══ SCROLL REVEAL ══ */
+/* SCROLL REVEAL */
 const obs = new IntersectionObserver(es => {
   es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
 },{threshold:.08});
 document.querySelectorAll('.rev').forEach(el => obs.observe(el));
-setTimeout(()=>{
-  document.querySelectorAll('#hero .rev').forEach(el=>el.classList.add('vis'));
-},120);
 </script>
 </body>
 </html>
